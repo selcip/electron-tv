@@ -1,0 +1,20 @@
+{
+  "name": "electron-tv",
+  "version": "0.0.1",
+  "description": "Smart TV built with electron and some other neat tools",
+  "main": "src/tv.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "selcip <eduselcip@gmail.com> (Luiz Eduardo Costantin)",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-preset-es2016-node5": "^1.1.2",
+    "babel-preset-react": "^6.5.0",
+    "electron-prebuilt-compile": "^1.1.3"
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "socket.io": "^1.7.1"
+  }
+}

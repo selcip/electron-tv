@@ -1,0 +1,32 @@
+html {
+  background: url('../assets/images/background.png') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background  -size: cover;
+  height: 90%;
+}
+
+body {
+  height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px
+}
+
+#clock {
+  font-family: 'Roboto';
+  font-size: 110px;
+  color: rgba(255, 255, 255, 0.6);
+  z-index: -1;
+}
+
+.video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: auto;
+}

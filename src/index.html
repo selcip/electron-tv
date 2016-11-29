@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel='stylesheet' href='styles/main.css'/>
+  </head>
+  <body>
+    <div class='video' id="video"></div>
+    <div id='clock'>
+
+    </div>
+  </body>
+  <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script>
+    import { startClock } from './scripts/clock'
+    let socket = io.connect('http://localhost:4000')
+    let estado = 0, player, controle = 0
+
+    socket.on('controle', (id)=>{
+      let cmd = ['play/pause', 'stop', 'vol_up', 'vol_down']
+      _control(cmd.indexOf(id))
+    })
+
+    socket.on('video', (id)=>{
+      _player(id, estado)
+      console.log('Estado: ' + estado)
+    })
+
+    function _control(id){
+      switch(id){
+        case 0:
+          console.log('play pause')
+          if(controle==0){
+            controle=1
+            player.pauseVideo()
+          }else{
+            controle=0
+            player.playVideo()
+          }
+          break
+        case 1:
+          estado = 2
+          document.getElementById('video').style.visibility = "hidden"
+          socket.emit('botoes', 0)
+          player.stopVideo()
+          break
+        case 2:
+          player.setVolume(player.getVolume()+10)
+          setTimeout(()=>{
+            socket.emit('volume', player.getVolume())
+          }, 500)
+          break
+        case 3:
+          player.setVolume(player.getVolume()-10)
+          setTimeout(()=>{
+            socket.emit('volume', player.getVolume())
+          }, 500)
+          break
+      }
+    }
+
+    function _player(id, s){
+      switch(s){
+        case 0:
+          console.log('Tocando vídeo: ' + id)
+          estado = 1
+          console.log('Estado alterado para: ' + estado)
+          player = new YT.Player('video', {height: '100%', width: '100%', videoId: id, playerVars: {'autoplay': 1, 'controls': 0}})
+          break
+        case 1:
+          player.cueVideoById(id)
+          player.playVideo()
+          break
+        case 2:
+          document.getElementById('video').style.visibility = "visible"
+          socket.emit('botoes', 1)
+          estado = 1
+          player.cueVideoById(id)
+          player.playVideo()
+          break
+      }
+    }
+    setInterval(()=>{startClock()}, 1000)
+  </script>
+</html>
