@@ -65,6 +65,7 @@
     function _player(id, s){
       switch(s){
         case 0:
+          socket.emit('botoes', 1)
           console.log('Tocando vídeo: ' + id)
           estado = 1
           console.log('Estado alterado para: ' + estado)
