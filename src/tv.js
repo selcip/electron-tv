@@ -1,21 +1,24 @@
-import {app, BrowserWindow} from 'electron'
-import { start } from './server'
+'use strict';
 
-let mainWindow = null
+var _electron = require('electron');
 
-app.on('window-all-closed', () => {
-  app.quit()
-})
+var _server = require('./server');
 
-app.on('ready', () => {
-  mainWindow = new BrowserWindow({
+var mainWindow = null;
+
+_electron.app.on('window-all-closed', function () {
+  _electron.app.quit();
+});
+
+_electron.app.on('ready', function () {
+  mainWindow = new _electron.BrowserWindow({
     width: 1366,
     height: 768,
     frame: false
-  })
+  });
 
-  start()
+  (0, _server.start)();
 
-  mainWindow.loadURL(`file://${__dirname}/index.html`);
-  mainWindow.setFullScreen(true)
-})
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
+  mainWindow.setFullScreen(true);
+});

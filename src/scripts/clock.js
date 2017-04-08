@@ -8,4 +8,4 @@ function format(i){
   return i
 }
 
-export { startClock }
+module.exports.startClock = startClock;

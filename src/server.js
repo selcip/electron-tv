@@ -34,4 +34,4 @@ function start(){
   })
 }
 
-export { start }
+module.exports.start = start;
